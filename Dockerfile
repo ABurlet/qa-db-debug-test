@@ -1,11 +1,10 @@
-# Use a Node.js image
-FROM node:14
+# Use a Node.js LTS image (Debian Bookworm has supported apt repos)
+FROM node:18
 
-# Set environment variables
+# Set environment variables (no secrets in ENV; password is only used in RUN at build time)
 ENV LANG=C.UTF-8 \
     LC_ALL=C.UTF-8 \
     POSTGRES_USER=testuser \
-    POSTGRES_PASSWORD=password \
     POSTGRES_DB=testdb
 
 # Install PostgreSQL and dependencies
@@ -13,9 +12,10 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends postgresql postgresql-contrib && \
     rm -rf /var/lib/apt/lists/*
 
-# Configure PostgreSQL authentication
-RUN echo "host all all 0.0.0.0/0 md5" >> /etc/postgresql/11/main/pg_hba.conf && \
-    echo "listen_addresses='*'" >> /etc/postgresql/11/main/postgresql.conf
+# Configure PostgreSQL authentication (version-agnostic path)
+RUN pg_version=$(ls /etc/postgresql) && \
+    echo "host all all 0.0.0.0/0 md5" >> /etc/postgresql/$pg_version/main/pg_hba.conf && \
+    echo "listen_addresses='*'" >> /etc/postgresql/$pg_version/main/postgresql.conf
 
 # Start PostgreSQL, create the database, user, and decode and execute the Base64 SQL commands
 RUN service postgresql start && \
