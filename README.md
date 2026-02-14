@@ -18,14 +18,17 @@ Cursor
 
 **Problem Summary**
 
-**Failing test*
+**Failing test**
+
 should create a user with valid credentials
-**Error*
+
+**Error**
 User validation failed: security requirements not met 
 
-**Other tests*
+**Other tests**
 -should reject duplicate usernames
 -should reject users younger than 13 years old
+
 These passed successfully.
 
 
