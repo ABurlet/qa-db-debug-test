@@ -68,6 +68,6 @@ Database unchanged
 Test suite accurately reflects existing validation rules
 Environment builds successfully
 
-Summary
+**Summary**
 
 Fixed a failing database test by adding a missing required field (password_hash) so the test matches existing database validation rules, without modifying the database itself.
