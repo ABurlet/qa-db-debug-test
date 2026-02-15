@@ -3,6 +3,9 @@
 const { Client } = require('pg');
 const { expect } = require('chai');
 
+// Shared bcrypt hash for tests (satisfies password_hash requirement; represents 'password123')
+const TEST_PASSWORD_HASH = '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj4J/HS.i77i';
+
 describe('Database Test', function () {
   let client;
 
@@ -47,7 +50,7 @@ describe('Database Test', function () {
         ) VALUES (
           'test.user@example.com',
           'testuser123',
-          '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj4J/HS.i77i',
+          '${TEST_PASSWORD_HASH}',
           'Test',
           'User',
           '1990-01-15',
@@ -81,7 +84,7 @@ describe('Database Test', function () {
       ) VALUES (
         'user1@example.com',
         'uniqueuser',
-        '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj4J/HS.i77i',
+        '${TEST_PASSWORD_HASH}',
         'First',
         'User',
         '1990-01-15',
@@ -102,7 +105,7 @@ describe('Database Test', function () {
         ) VALUES (
           'user2@example.com',
           'uniqueuser',
-          '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj4J/HS.i77i',
+          '${TEST_PASSWORD_HASH}',
           'Second',
           'User',
           '1992-01-15',
@@ -131,7 +134,7 @@ describe('Database Test', function () {
         ) VALUES (
           'young@example.com',
           'younguser',
-          '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj4J/HS.i77i',
+          '${TEST_PASSWORD_HASH}',
           'Young',
           'User',
           $1,
