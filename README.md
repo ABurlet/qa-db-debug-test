@@ -48,11 +48,7 @@ This allows the test to satisfy the existing database trigger and pass successfu
 
 **Build & Environment Fixes**
 
-While reproducing the issue, several environment problems were resolved:
--Upgraded base image from Node 14 (EOL Debian Buster) to Node 18 (supported).
--Made PostgreSQL configuration paths version-agnostic to support different PostgreSQL versions.
--Removed unused POSTGRES_PASSWORD environment variable to eliminate a security warning.
-The changes ensure the project builds and runs reliably.
+While reproducing the failing test locally, I encountered a Docker build issue due to the base image using an end of life Node/Debian version. I updated the base image to the supported Node version so the provided test harness builds and runs reliably. I also adjusted PostgreSQL config paths to avoid hardcoded version assumptions and removed an unused environment variable that triggered a security warning. These changes were limited to ensuring the container builds and executes successfully. The database schema and validation logic were not modefied. 
 
 **How to Run**
 Build: docker build -t qa-db-test .
